@@ -7,7 +7,7 @@ spring:
 management:
   endpoint:
     refresh:
-      enabled: true
+      access: unrestricted
   endpoints:
     web:
       exposure:
