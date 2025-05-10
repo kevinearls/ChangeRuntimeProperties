@@ -19,7 +19,7 @@ public class PropertyController {
     @PostMapping("/update")
     public String updateProperty(@RequestParam String key, @RequestParam String value) {
         propertyUpdaterService.updateProperty(key, value);
-        return "Property updated. Remember to call the actuator /actuator/refresh";
+        return "Property updated.";
     }
 
     @GetMapping("/customProperty")

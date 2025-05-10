@@ -4,6 +4,7 @@ spring:
   cloud:
     config:
       enabled: false
+
 management:
   endpoint:
     refresh:

@@ -1,6 +1,8 @@
 package dev.kearls.changeruntimeproperties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.endpoint.event.RefreshEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
@@ -16,6 +18,13 @@ public class PropertyUpdaterService {
     @Autowired
     private ConfigurableEnvironment environment;
 
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
+    public void fireRefreshEvent() {
+        eventPublisher.publishEvent(new RefreshEvent(this, "RefreshEvent", "Refreshing scope"));
+    }
+
     public void updateProperty(String key, String value) {
         MutablePropertySources propertySources = environment.getPropertySources();
         if (!propertySources.contains(DYNAMIC_PROPERTIES_SOURCE_NAME)) {
@@ -26,5 +35,7 @@ public class PropertyUpdaterService {
             MapPropertySource propertySource = (MapPropertySource) propertySources.get(DYNAMIC_PROPERTIES_SOURCE_NAME);
             propertySource.getSource().put(key, value);
         }
+
+        fireRefreshEvent();
     }
 }
