@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: ChangeRuntimeProperties
+  cloud:
+    config:
+      enabled: false
+management:
+  endpoint:
+    refresh:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
+        boot:
+          actuate: DEBUG
+
+my:
+  custom:
+    property: biteme
+
+
+
+
+
